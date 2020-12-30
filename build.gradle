@@ -21,10 +21,17 @@ repositories {
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
     implementation 'org.springframework.cloud:spring-cloud-sleuth-core:2.2.6.RELEASE'
+    implementation 'com.sun.xml.bind:jaxb-osgi:3.0.0'
+
     compileOnly 'org.projectlombok:lombok'
+
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
     annotationProcessor 'org.projectlombok:lombok'
+
+    testImplementation 'junit:junit:4.13'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'io.rest-assured:rest-assured:4.3.0'
+
 }
 
 test {
