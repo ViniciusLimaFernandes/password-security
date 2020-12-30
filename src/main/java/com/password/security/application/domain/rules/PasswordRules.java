@@ -11,44 +11,56 @@ import java.util.regex.Pattern;
 public class PasswordRules implements PasswordCriteria {
 
     @Override
-    public Boolean hasAtLeastOneUpperCaseLetter(final String password) {
+    public boolean hasAtLeastOneUpperCaseLetter(final String password) {
         final String atLeastOneUpperCaseLetterRegex = "^(?=.*[A-Z]).*$";
+
+        log.info("Checking if the password has at least one uppercase letter");
 
         return password.matches(atLeastOneUpperCaseLetterRegex);
     }
 
     @Override
-    public Boolean hasAtLeastOneLowerCaseLetter(final String password) {
+    public boolean hasAtLeastOneLowerCaseLetter(final String password) {
         final String atLeastOneLowerCaseLetterRegex = "^(?=.*[a-z]).*$";
+
+        log.info("Checking if the password has at least one lowercase letter");
 
         return password.matches(atLeastOneLowerCaseLetterRegex);
     }
 
     @Override
-    public Boolean hasAtLeastOneDigit(final String password) {
+    public boolean hasAtLeastOneDigit(final String password) {
         final String atLeastOneDigitRegex = "^(?=.*[0-9]).*$";
+
+        log.info("Checking if the password has at least one digit");
 
         return password.matches(atLeastOneDigitRegex);
     }
 
     @Override
-    public Boolean hasAtLeastOneSpecialCharacter(final String password) {
+    public boolean hasAtLeastOneSpecialCharacter(final String password) {
         final String atLeastOneSpecialCharacterRegex = "^(?=.*[!|@|#|$|%|^|&|*|(|)|\\-|+]).*$";
+
+        log.info("Checking if the password has at least one special character");
 
         return password.matches(atLeastOneSpecialCharacterRegex);
     }
 
     @Override
-    public Boolean hasAtLeastNineCharacters(final String password) {
+    public boolean hasAtLeastNineCharacters(final String password) {
         final String atLeastOneDigitRegex = "^(?=^.{9,}).*$";
+
+        log.info("Checking if the password has at least nine characters");
 
         return password.matches(atLeastOneDigitRegex);
     }
 
 
     @Override
-    public Boolean haveNonRepeatingCharacters(final String password) {
+    public boolean haveNonRepeatingCharacters(final String password) {
         final String haveNonRepeatingCharactersRegex = "^(?!.*(.).*\\1).*$";
+
+        log.info("Checking if the password doesn't repeat characters");
 
         final Pattern haveNonRepeatingCharactersPattern = Pattern.compile(haveNonRepeatingCharactersRegex, Pattern.CASE_INSENSITIVE);
 
@@ -56,8 +68,10 @@ public class PasswordRules implements PasswordCriteria {
     }
 
     @Override
-    public Boolean haveNonSpaces(final String password) {
+    public boolean haveNonSpaces(final String password) {
         final String haveNonSpacesRegex = "^(?!.*\\h).*$";
+
+        log.info("Checking if the password doesn't have spaces");
 
         return password.matches(haveNonSpacesRegex);
     }
