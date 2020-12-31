@@ -1,28 +1,29 @@
-package com.password.security.application.service;
+package com.password.security.integration;
 
-import com.password.security.application.domain.entity.PasswordStatus;
+import com.password.security.APIStarter;
 import com.password.security.application.resources.entity.PasswordDTO;
-import org.junit.Assert;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.Arguments;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.web.server.LocalServerPort;
 
 import java.util.stream.Stream;
 
+import static io.restassured.RestAssured.given;
+import static org.hamcrest.Matchers.equalTo;
 import static org.junit.jupiter.params.provider.Arguments.arguments;
 
-@SpringBootTest
-class PasswordValidatorServiceTest {
+@SpringBootTest(classes = APIStarter.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+class IntegrationTests {
 
-    @Autowired
-    PasswordValidatorService passwordValidatorService;
+    @LocalServerPort
+    private int port;
 
-    static Stream<Arguments> passwordsAndExpectedOutputDataProvider() {
+    static Stream<Arguments> validPasswordsFollowingAllCriteriaAndExpectedOutputDataProvider() {
         return Stream.of(
-                arguments(" ", false),
                 arguments("", false),
+                arguments(" ", false),
                 arguments("Aiushda 123!", false),
                 arguments("AbTp9!fok", true),
                 arguments("asoid!Pj@", true),
@@ -37,13 +38,20 @@ class PasswordValidatorServiceTest {
     }
 
     @ParameterizedTest
-    @MethodSource("passwordsAndExpectedOutputDataProvider")
-    void isValidPasswordWithAllCriteriaTest(String password, boolean expectedOutput) {
+    @MethodSource("validPasswordsFollowingAllCriteriaAndExpectedOutputDataProvider")
+    void validPasswordFollowingAllCriteriaTest(String password, boolean expectedOutput) {
         PasswordDTO passwordDTO = new PasswordDTO();
         passwordDTO.setPassword(password);
 
-        PasswordStatus result = passwordValidatorService.isValidPasswordWithAllCriteria(passwordDTO);
-
-        Assert.assertEquals(result.isValid(), expectedOutput);
+        given()
+                .port(port)
+                .body(passwordDTO)
+                .contentType("application/JSON")
+                .when()
+                .post("/v1/password/validate")
+                .then()
+                .statusCode(200)
+                .body("valid", equalTo(expectedOutput));
     }
+
 }
