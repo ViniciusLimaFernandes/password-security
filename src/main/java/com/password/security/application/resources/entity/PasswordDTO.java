@@ -1,10 +1,12 @@
 package com.password.security.application.resources.entity;
 
-import lombok.Getter;
+import lombok.Builder;
+import lombok.Data;
 
 import java.util.Objects;
 
-@Getter
+@Data
+@Builder
 public class PasswordDTO {
 
     private String password;
