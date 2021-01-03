@@ -34,7 +34,7 @@ IsValid("AbTp9!fok") // true
 
 ## 🔨 Como executar
 
-![AppStartup](https://user-images.githubusercontent.com/36551957/103425355-9f01c800-4b90-11eb-8f63-1cce450d3789.gif)
+![AppStartup](https://user-images.githubusercontent.com/36551957/103487868-37918580-4de7-11eb-972f-8fc53b0e301d.gif)
 
 - #### No Windows
 Na pasta raiz do projeto, utilize o comando `gradlew bootRun`. A aplicação irá expor o serviço na porta `8085`. Caso tenha problema para execução, ainda na pasta raiz do projeto utilize o comando `gradlew.bat`, e então execute o comando anterior novamente.
@@ -46,7 +46,7 @@ Caso tenha problema de permissionamento para execução, ainda na pasta raiz do 
 
 ## 🖱 Como utilizar
 
-![AppRunning](https://user-images.githubusercontent.com/36551957/103425511-7f1ed400-4b91-11eb-9d88-7fbbc217e9c1.gif)
+![AppRunning](https://user-images.githubusercontent.com/36551957/103487870-39f3df80-4de7-11eb-8200-65f72eafc5b3.gif)
 
 O seu uso é bem simples, ao iniciar a aplicação é exposta a URN `/v1/password/validate` utilizando o método HTTP POST.
 
@@ -66,6 +66,12 @@ curl --request POST \
 	"password":"asdfg!X1234"
 }'
 ```
+
+#### Swagger
+
+Após iniciar a aplicação o swagger estará disponível no endpoint `http://localhost:8085/docs`.
+
+![Swagger](https://user-images.githubusercontent.com/36551957/103487960-d1f1c900-4de7-11eb-8d01-c34be09c40d0.png)
 
 ## ⁉️ Como funciona
 
