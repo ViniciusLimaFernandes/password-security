@@ -9,14 +9,17 @@ import org.springframework.core.env.Environment;
 @SpringBootApplication
 public class APIStarter {
 
-    public static void main(final String[] args) {
-        final SpringApplication app = new SpringApplication(APIStarter.class);
-        final Environment env = app.run(args).getEnvironment();
+    public static void main(String[] args) {
+        SpringApplication app = new SpringApplication(APIStarter.class);
+        Environment env = app.run(args).getEnvironment();
 
-        log.info("\n=====================================\n" +
-                        "\tAcesse: http://localhost:{}\n" +
-                        "=====================================",
-                env.getProperty("server.port")
+        String port = env.getProperty("server.port");
+
+        log.info("\n================================================\n" +
+                        "\n\tAcesse: http://localhost:{}\n" +
+                        "\tSwagger: http://localhost:{}/docs\n" +
+                        "\n================================================\n",
+                port, port
         );
 
     }
